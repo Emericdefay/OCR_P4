@@ -22,7 +22,10 @@ class MainManager:
         # Attributes
         self.number_players = number_players
         self.check_first_round = True
-        self.offset_player1 = 0
+        self.offset_players = 0
+        self.list_compatible = []
+        self.number_matches = 0
+        self.number_rounds = 0
 
         # Initialisation
         self.generate_tournament()
@@ -35,7 +38,7 @@ class MainManager:
         """
         1. Creating tournament
         """
-        print("Creating tournament :")
+        print("\nCreating tournament :")
         self.tournament = TournamentManager()
         print(self.tournament.event.config_tournament)
 
@@ -43,7 +46,7 @@ class MainManager:
         """
         2. Add players
         """
-        print("Creating players :")
+        print("\nCreating players :")
 
         for i in range(self.number_players):
             self.players_management.create_player()
@@ -57,6 +60,10 @@ class MainManager:
         """
         self.players_management.sort_players()
 
+        print("")
+        if self.number_rounds > 0:
+            print(f"Round n°{self.number_rounds} :")
+
         if self.check_first_round:
             for player in self.players_management.players:
                 if player.points > 0:
@@ -68,24 +75,40 @@ class MainManager:
                 player_a = self.players_management.players[i]
                 player_b = self.players_management.players[i + number_matches]
                 self.matches_management.set_matches(i, player_a, player_b)
-            print(self.matches_management.matches)
 
         else:
             """AJOUTER MATCH DEJA FAIT : MP = ID_autre_joueur """
             self.matches_management.matches = []
             number_matches = len(self.players_management.players)//2
-            list_player = self.players_management.players
+
+            list_player = self.players_management.players.copy()
+            self.list_compatible = []
+
+            pointer = self.offset_players
+
             for i in range(number_matches):
-                player_a = self.players_management.players[i * 2]
-                player_b = self.players_management.players[i * 2 + 1]
-                pointer = i
-                while player_b.player_attributes[0] in player_a.match_passed:
-                    pointer += 1
-                    if pointer < number_matches:
-                        player_b = self.players_management.players[i*2 + pointer]
+                player_a = list_player.pop(0)
+                for j in range(pointer, len(list_player)):
+                    if player_a.player_attributes[0] in list_player[j].match_passed:
+                        if len(list_player) <= 2:
+                            self.offset_players += 1
+                            self.generate_pairs()
+                        if self.offset_players > len(self.players_management.players) - 1:
+                            raise ArithmeticError("Must redefine algo!")
+                        pass
                     else:
-                        raise ValueError("The match is impossible to define.")
-                self.matches_management.set_matches(i, player_a, player_b)
+                        player_b = list_player.pop(j)
+                        break
+                pointer = 0
+                self.list_compatible.append(player_a)
+                self.list_compatible.append(player_b)
+
+        for i in range(len(self.list_compatible)//2):
+            player_a = self.list_compatible[i*2]
+            player_b = self.list_compatible[i*2+1]
+            self.matches_management.set_matches(i, player_a, player_b)
+
+        self.offset_players = 0
 
         for player in self.players_management.players:
             if player not in self.matches_management.playing:
@@ -115,7 +138,13 @@ class MainManager:
 
                 self.matches_management.match_done(player_a, player_b)
                 self.matches_management.matches.pop(index)
+        self.number_matches += 1
 
+        if self.number_matches > 3:
+            self.number_rounds += 1
+            self.number_matches = 0
+
+        """    
         print("\nMatchs restants : \n")
 
         for match in self.matches_management.matches:
@@ -124,7 +153,7 @@ class MainManager:
         print("\nBilan joueurs : \n")
         for player in self.players_management.players:
             print(player)
-
+        """
 
 
 

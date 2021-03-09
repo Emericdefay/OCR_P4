@@ -5,18 +5,19 @@ import math
 
 PLAYERS = 8
 a = MainManager(PLAYERS)
+rounds = int(math.log2(PLAYERS))+1
 try:
-    for i in range(int(math.log2(PLAYERS))):
+    for i in range(rounds):
         for j in range(PLAYERS//2):
             test = str(random.randint(0, 2))
-            print("result : "+test)
             a.match_result(j, test)
         a.generate_pairs()
+        for player in a.players_management.players:
+            print(player)
 except:
-    pass
+    raise
 
 a.players_management.sort_players()
-print(int(math.log2(PLAYERS)))
-print("result")
+print("\nResults finaux :")
 for player in a.players_management.players:
     print(player)

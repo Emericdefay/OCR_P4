@@ -56,7 +56,6 @@ class Player:
 
     @points.setter
     def points(self, point):
-        print(point, type(point))
         try:
             self._points += float(point)
         except:

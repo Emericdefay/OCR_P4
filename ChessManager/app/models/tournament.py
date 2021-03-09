@@ -55,16 +55,6 @@ class Tournament:
                 self.time_control,
                 self.description]
 
-    @config_tournament.getter
-    def config_tournament(self):
-        return [self.name,
-                self.number_players,
-                self.date,
-                self.number_rounds,
-                self.rounds,
-                self.players,
-                self.time_control,
-                self.description]
 
 
 
