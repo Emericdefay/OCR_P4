@@ -54,9 +54,3 @@ class Tournament:
                 self.players,
                 self.time_control,
                 self.description]
-
-
-
-
-
-

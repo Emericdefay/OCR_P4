@@ -33,12 +33,18 @@ class Player:
         self._match_passed = []
 
     def __repr__(self):
-        # return f'Player(id_player={self.id_player}, first_name={self.first_name}, elo={self.elo}, points = {self._points}, MP={self._match_passed})'
         return f'{self.id_player} : elo={self.elo}, points = {self._points}, MP={self._match_passed}'
 
     @property
     def player_attributes(self):
-        return [self.id_player, self.last_name, self.first_name, self.birthday, self.sex, self.elo, self._points, self._match_passed]
+        return [self.id_player,
+                self.last_name,
+                self.first_name,
+                self.birthday,
+                self.sex,
+                self.elo,
+                self._points,
+                self._match_passed]
 
     @property
     def match_passed(self):
@@ -58,5 +64,9 @@ class Player:
     def points(self, point):
         try:
             self._points += float(point)
-        except:
-            raise ValueError("Points have to be 1 or 0.5.")
+        except ValueError as v:
+            ;"""|!|"""
+            print(f"Error : {v}. Points must be 0, 0.5 or 1.")
+        except Exception as e:
+            ;"""|!|"""
+            print(f"Error : {e}")

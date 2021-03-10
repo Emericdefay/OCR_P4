@@ -8,6 +8,3 @@ class MainView:
         """
 
         pass
-
-    def show_players(self):
-        for

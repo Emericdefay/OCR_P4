@@ -1,4 +1,3 @@
-from app.models import Player
 from .player_manager import PlayerManager
 from .tournament_manager import TournamentManager
 from .match_manager import MatchManager
@@ -38,20 +37,25 @@ class MainManager:
         """
         1. Creating tournament
         """
+        ;"""|!|"""
         print("\nCreating tournament :")
         self.tournament = TournamentManager()
+        ;"""|!|"""
         print(self.tournament.event.config_tournament)
 
     def generate_players(self):
         """
         2. Add players
         """
+        ;"""|!|"""
         print("\nCreating players :")
 
         for i in range(self.number_players):
             self.players_management.create_player()
 
+        ;"""|!|"""
         for player in self.players_management.players:
+            ;"""|!|"""
             print(player.__repr__())
 
     def generate_pairs(self):
@@ -59,10 +63,6 @@ class MainManager:
         3. Create matches
         """
         self.players_management.sort_players()
-
-        print("")
-        if self.number_rounds > 0:
-            print(f"Round n°{self.number_rounds} :")
 
         if self.check_first_round:
             for player in self.players_management.players:
@@ -77,7 +77,6 @@ class MainManager:
                 self.matches_management.set_matches(i, player_a, player_b)
 
         else:
-            """AJOUTER MATCH DEJA FAIT : MP = ID_autre_joueur """
             self.matches_management.matches = []
             number_matches = len(self.players_management.players)//2
 
@@ -115,6 +114,16 @@ class MainManager:
                 player.points = 1
         self.matches_management.playing = []
 
+        ;"""|!|"""
+        print("")
+        if self.number_rounds > 0:
+            """|!|"""
+            print(f"Round n°{self.number_rounds} :")
+            """|!|"""
+            for player in self.players_management.players:
+                """|!|"""
+                print(player)
+
     def match_result(self, id_match, test=None):
         for index, match in enumerate(self.matches_management.matches):
             if id_match == match.id_match:
@@ -143,17 +152,3 @@ class MainManager:
         if self.number_matches > 3:
             self.number_rounds += 1
             self.number_matches = 0
-
-        """    
-        print("\nMatchs restants : \n")
-
-        for match in self.matches_management.matches:
-            print(match)
-
-        print("\nBilan joueurs : \n")
-        for player in self.players_management.players:
-            print(player)
-        """
-
-
-

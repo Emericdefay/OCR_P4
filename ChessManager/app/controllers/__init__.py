@@ -1,3 +1,4 @@
+# flake8: noqa
 """Controllers imports."""
 
 from .main_manager import MainManager
