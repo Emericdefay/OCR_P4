@@ -13,8 +13,8 @@ class PlayerManager:
         """
         self.players = []
 
-    def create_player(self, manual=False):
-        if manual:
+    def create_player(self, auto=False):
+        if not auto:
             id_player = input("ID player : ")
             last_name = input("Last name : ")
             first_name = input("First name : ")

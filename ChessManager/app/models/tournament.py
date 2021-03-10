@@ -4,6 +4,7 @@ class Tournament:
     """
     def __init__(
             self,
+            id_tournament: str,
             name: str,
             number_players: int,
             date: str,
@@ -15,6 +16,7 @@ class Tournament:
         """
         DESCRIPTION
 
+        :param id_tournament:
         :param name:
         :param number_players:
         :param date:
@@ -24,6 +26,7 @@ class Tournament:
         :param description:
         :param number_rounds:
 
+        :rtype id_tournament:
         :rtype name:
         :rtype number_players:
         :rtype date:
@@ -34,6 +37,7 @@ class Tournament:
         :rtype number_rounds:
         """
 
+        self.id_tournament = id_tournament
         self.name = name
         self.number_players = number_players
         self.date = date
@@ -43,6 +47,18 @@ class Tournament:
         self.time_control = time_control
         self.description = description
         pass
+
+    def __repr__(self):
+        return f"Tournament : {self.name} | ID : {self.id_tournament}\n" \
+               f"Date : {self.date}\n" \
+               f"Number of players : {self.number_players}\n" \
+               f"Number of rounds : {self.number_rounds}\n" \
+               f"Time limit per round : {self.time_control}\n" \
+               f"\n" \
+               f"Rounds already done : {self.rounds}\n" \
+               f"Stats players : {self.players}\n" \
+               f"\n" \
+               f"{self.description}"
 
     @property
     def config_tournament(self):

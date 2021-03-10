@@ -3,22 +3,27 @@ import random
 import math
 
 
-PLAYERS = 6
-a = MainManager(PLAYERS)
+PLAYERS = 8
+a = MainManager(PLAYERS, 1)
 rounds = int(math.log2(PLAYERS))+1
 try:
     for i in range(rounds):
+        if i > 0:
+            a.generate_pairs()
         for j in range(PLAYERS//2):
             test = str(random.randint(0, 2))
-            a.match_result(j, test)
-        a.generate_pairs()
+            id_match = f"{1}-{i}-{j}"
+            a.match_result(id_match, test)
+
+
 except ArithmeticError:
     print("The algorithm is incomplete")
 except Exception as e:
     print(f"Error : {e}")
 
+a.show_matches()
 
 a.players_management.sort_players()
-print("\nResults finaux :")
+print("\nFinal results :")
 for player in a.players_management.players:
     print(player)

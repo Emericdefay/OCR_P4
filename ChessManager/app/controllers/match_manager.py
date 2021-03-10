@@ -27,20 +27,24 @@ class MatchManager:
         self.players_playing.append(player_b)
         pass
 
-    def match_winner(self, player):
+    def match_winner(self, id_match, control):
         """"""
-        player.points = 1
+        for match in self.matches:
+            if id_match == match.id_match:
+                if control == "0":
+                    match.player_a.points = 1
+                if control == "1":
+                    match.player_b.points = 1
+                match.set_winner(control)
         pass
 
-    def match_looser(self, player):
+    def match_equality(self, id_match, control):
         """"""
-        player.points = 0
-        pass
-
-    def match_equality(self, player_a, player_b):
-        """"""
-        player_a.points = 0.5
-        player_b.points = 0.5
+        for match in self.matches:
+            if id_match == match.id_match:
+                match.player_a.points = 0.5
+                match.player_b.points = 0.5
+            match.set_winner(control)
         pass
 
     def match_done(self, player_a, player_b):

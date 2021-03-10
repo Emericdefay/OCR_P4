@@ -65,8 +65,6 @@ class Player:
         try:
             self._points += float(point)
         except ValueError as v:
-            ;"""|!|"""
             print(f"Error : {v}. Points must be 0, 0.5 or 1.")
         except Exception as e:
-            ;"""|!|"""
             print(f"Error : {e}")
