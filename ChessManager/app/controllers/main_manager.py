@@ -1,12 +1,10 @@
 # Built-in libraries
 import datetime
-
 # Controllers
 from .player_manager import PlayerManager
 from .tournament_manager import TournamentManager
 from .match_manager import MatchManager
 from .round_manager import RoundManager
-
 # Views
 from app.views import Report
 
@@ -125,11 +123,11 @@ class MainManager:
 
     def match_result(self, id_match, test=None):
         for index, match in enumerate(self.matches_management.matches):
-            self.tournament.add_rounds(match)
             if id_match == match.id_match:
-                # points
                 player_a = match.player_a
                 player_b = match.player_b
+
+                self.tournament.add_rounds(match)
 
                 if test is None:
                     choice = str(input(f"Who win? {player_a}:0 or {player_b}:1 or equal:2."))

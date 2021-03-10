@@ -1,3 +1,4 @@
+# Local application imports
 from app.models.match import Match
 
 
@@ -28,7 +29,12 @@ class MatchManager:
         pass
 
     def match_winner(self, id_match, control):
-        """"""
+        """
+
+        :param id_match:
+        :param control:
+        :return:
+        """
         for match in self.matches:
             if id_match == match.id_match:
                 if control == "0":
@@ -39,7 +45,12 @@ class MatchManager:
         pass
 
     def match_equality(self, id_match, control):
-        """"""
+        """
+
+        :param id_match:
+        :param control:
+        :return:
+        """
         for match in self.matches:
             if id_match == match.id_match:
                 match.player_a.points = 0.5
@@ -48,26 +59,45 @@ class MatchManager:
         pass
 
     def match_done(self, player_a, player_b):
-        """"""
+        """
+
+        :param player_a:
+        :param player_b:
+        :return:
+        """
         player_a.match_passed = player_b.id_player
         player_b.match_passed = player_a.id_player
         pass
 
     def round_done(self):
-        """"""
+        """
+
+        :return:
+        """
         self.matches = []
         pass
 
     @property
     def playing(self):
-        """"""
+        """
+
+        :return:
+        """
         return self.players_playing
 
     @playing.getter
     def playing(self):
-        """"""
+        """
+
+        :return:
+        """
         return self.players_playing
 
     @playing.setter
     def playing(self, var):
+        """
+
+        :param var:
+        :return:
+        """
         self.players_playing = var

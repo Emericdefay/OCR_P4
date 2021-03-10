@@ -1,13 +1,16 @@
+# Local application imports
 from app.models import Tournament
 
 
 class TournamentManager:
     """
-
+    Create a tournament manager
     """
     def __init__(self, id_tournament):
         """
-
+        Construct a tournament manager
+        :param id_tournament: ID of the tournament - UNIQUE
+        :rtype id_tournament: str
         """
         self.id_tournament = id_tournament
         self.event = object
@@ -15,7 +18,11 @@ class TournamentManager:
         pass
 
     def create_tournament(self, manual=False):
-
+        """
+        Create a tournament, procedurally or manually.
+        :param manual: True for procedurally, False for manually.
+        :rtype manual: boolean
+        """
         if manual:
             name = input("Tournament's name : ")
             number_players = int(input("Number of players : "))
@@ -54,9 +61,17 @@ class TournamentManager:
                                     number_rounds)
 
     def add_rounds(self, list_matches):
-        """"""
+        """
+        Add a list of matches instances to the tournament.rounds attribute associate
+        :param list_matches:
+        :rtype:
+        """
         self.event.rounds.append(list_matches)
 
     def add_players(self, list_players):
-        """"""
+        """
+        Add a list of players instances to the tournament.players attribute associate
+        :param list_players: List of players for a tournament
+        :rtype list_players: list
+        """
         self.event.players.append(list_players)

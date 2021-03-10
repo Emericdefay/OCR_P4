@@ -16,25 +16,25 @@ class Tournament:
         """
         DESCRIPTION
 
-        :param id_tournament:
-        :param name:
-        :param number_players:
-        :param date:
-        :param rounds:
-        :param players:
-        :param time_control:
-        :param description:
-        :param number_rounds:
+        :param id_tournament: ID of the tournament
+        :param name: Name of the tournament
+        :param number_players: Number of players playing tournament
+        :param date: date when the tournament happens
+        :param rounds: List of matches realized during tournament
+        :param players: List of players playing tournament
+        :param time_control: Duration of matches
+        :param description: Description of tournament
+        :param number_rounds: Number of rounds of tournament (predefine at 4)
 
-        :rtype id_tournament:
-        :rtype name:
-        :rtype number_players:
-        :rtype date:
-        :rtype rounds:
-        :rtype players:
-        :rtype time_control:
-        :rtype description:
-        :rtype number_rounds:
+        :rtype id_tournament: str
+        :rtype name: str
+        :rtype number_players: int
+        :rtype date: str
+        :rtype rounds: list
+        :rtype players: list
+        :rtype time_control: int
+        :rtype description: str
+        :rtype number_rounds: int
         """
 
         self.id_tournament = id_tournament
@@ -49,6 +49,9 @@ class Tournament:
         pass
 
     def __repr__(self):
+        """
+        Simplifying the reading of instance's attributes.
+        """
         return f"Tournament : {self.name} | ID : {self.id_tournament}\n" \
                f"Date : {self.date}\n" \
                f"Number of players : {self.number_players}\n" \
@@ -62,6 +65,9 @@ class Tournament:
 
     @property
     def config_tournament(self):
+        """
+        Tournament attributes
+        """
         return [self.name,
                 self.number_players,
                 self.date,

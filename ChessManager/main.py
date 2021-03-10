@@ -3,7 +3,7 @@ import random
 import math
 
 
-PLAYERS = 8
+PLAYERS = 32
 a = MainManager(PLAYERS, 1)
 rounds = int(math.log2(PLAYERS))+1
 try:
