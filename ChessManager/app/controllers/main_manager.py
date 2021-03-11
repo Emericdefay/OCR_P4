@@ -29,7 +29,7 @@ class MainManager:
         self.offset_players = 0
         self.list_compatible = []
         self.number_matches = 0
-        self.number_rounds = 0
+        self.number_rounds = 1
 
         # Initialisation
         self.generate_tournament()
@@ -71,7 +71,7 @@ class MainManager:
             for i in range(number_matches):
                 player_a = self.players_management.players[i]
                 player_b = self.players_management.players[i + number_matches]
-                id_match = f"{self.id_tournament}-{self.number_rounds}-{i}"
+                id_match = f"{self.id_tournament}-{self.number_rounds}-{i+1}"
                 self.matches_management.set_matches(id_match, player_a, player_b)
 
         else:
@@ -103,7 +103,7 @@ class MainManager:
         for i in range(len(self.list_compatible)//2):
             player_a = self.list_compatible[i*2]
             player_b = self.list_compatible[i*2+1]
-            id_match = f"{self.id_tournament}-{self.number_rounds}-{i}"
+            id_match = f"{self.id_tournament}-{self.number_rounds}-{i+1}"
             self.matches_management.set_matches(id_match, player_a, player_b)
 
         self.offset_players = 0
@@ -113,15 +113,19 @@ class MainManager:
                 player.points = 1
         self.matches_management.playing = []
 
-        # self.tournament.add_
-
-        if self.number_rounds > 0:
-            self.report_round_number()
+        if self.number_rounds > 1:
             self.report_players()
 
-        # self.round_management.create_round(self.number_rounds, self.matches_management.matches)
+        time_beginning = self.get_times()[0]
+        time_ending = self.get_times()[1]
+        self.round_management.create_round(self.number_rounds,
+                                           self.matches_management.matches,
+                                           time_beginning,
+                                           time_ending)
 
-    def match_result(self, id_match, test=None):
+        self.show_round(self.number_rounds)
+
+    def match_result(self, id_match, test=None, auto=False):
         for index, match in enumerate(self.matches_management.matches):
             if id_match == match.id_match:
                 player_a = match.player_a
@@ -142,7 +146,14 @@ class MainManager:
                     self.matches_management.match_equality(id_match, choice)
 
                 self.matches_management.match_done(player_a, player_b)
+
+                if not auto:
+                    self.show_match_played(id_match)
+
                 self.matches_management.matches.pop(index)
+
+                if not auto:
+                    self.show_match_left()
 
         self.number_matches += 1
 
@@ -165,7 +176,6 @@ class MainManager:
 
         time_b = time_a + minutes_added
         time_b_strf = time_b.strftime("%H:%M:%S - %d/%b/%Y")
-
         return time_a_strf, time_b_strf
 
     def report_create_tournament(self):
@@ -175,14 +185,26 @@ class MainManager:
         Report(self.players_management.players).players_created()
 
     def report_players(self):
-        Report(self.players_management.players).show_players()
+        Report(self.players_management.players).show_players_by_score()
 
     def report_round_number(self):
         Report(self.number_rounds).show_number_round()
 
-    def show_matches(self):
-        # REDEFINE
-        Report(self.tournament.event.rounds).show_matches()
+    def show_round(self, id_round):
+        Report(self.round_management.list_rounds).show_round(id_round)
 
-    def show_players(self):
-        Report(self.tournament.event.players).show_players()
+    def show_matches(self, id_match):
+        # REDEFINE
+        Report(self.tournament.event.rounds).show_matches(id_match[:3])
+
+    def show_match_played(self, id_match):
+        Report(self.tournament.event.rounds).show_matches(id_match)
+
+    def show_match_left(self):
+        Report(self.matches_management.matches).show_matches_left()
+
+    def show_players_by_score(self):
+        Report(self.players_management.players).show_players_by_score()
+
+    def show_players_by_alpha(self):
+        Report(self.players_management.players).show_player_by_alpha()

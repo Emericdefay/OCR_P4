@@ -1,3 +1,6 @@
+from operator import attrgetter
+
+
 class Report:
     """
     This class take an object and show it, depending on it nature.
@@ -16,7 +19,7 @@ class Report:
         """
         Print all tournament's characteristics
         """
-        print("\n\tTournament created : ")
+        print("\nTournament created : ")
         print(self.report)
 
     def players_created(self):
@@ -24,17 +27,24 @@ class Report:
         Print all players created
         Debug tool
         """
-        print("\n\tPlayers created :")
+        print("\nPlayers created :")
         for player in self.report:
-            print(player)
+            print(f"\t{player}")
 
-    def show_players(self):
+    def show_players_by_score(self):
         """
         Print all players from a tournament
         """
-        print("\tTournament's players :")
+        print("\nCurrent Player ranking :")
         for player in self.report:
-            print(player)
+            print(f"\t{player}")
+
+    def show_player_by_alpha(self):
+        self.report = sorted(self.report, key=attrgetter("first_name"), reverse=False)
+        self.report = sorted(self.report, key=attrgetter("last_name"), reverse=False)
+        print("\nList of players (A-Z):")
+        for player in self.report:
+            print(f"\t{player}")
 
     def show_number_round(self):
         """
@@ -42,10 +52,21 @@ class Report:
         """
         print(f"\n\tRound n°{self.report} :")
 
-    def show_matches(self):
+    def show_matches(self, id_match):
         """
         Print matches played during the tournament.
         """
-        print("\n\t Matches played:")
+        print("\nPlayed :")
         for match in self.report:
-            print(match)
+            if id_match in match.id_match[:len(id_match)]:
+                print(f"\t{match}")
+
+    def show_matches_left(self):
+        print('\nLeft :')
+        for match in self.report:
+            print(f"\t{match}")
+
+    def show_round(self, id_round):
+        for one_round in self.report:
+            if id_round == one_round.id_round:
+                print(f"\n{one_round}")

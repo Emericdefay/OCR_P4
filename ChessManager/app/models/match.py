@@ -42,3 +42,7 @@ class Match:
         attr_a = self.player_a.player_attributes[0]
         attr_b = self.player_b.player_attributes[0]
         return f"ID Match={self.id_match} : {attr_a} vs {attr_b} : {self.status}"
+
+    @property
+    def match(self):
+        return tuple([self.player_a, self.player_a.points], [self.player_b, self.player_b.points])

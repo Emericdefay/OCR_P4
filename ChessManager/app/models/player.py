@@ -37,7 +37,8 @@ class Player:
         Resuming the player by : ID, elo, points, match_passed
         :return: f-string
         """
-        return f'{self.id_player} : elo={self.elo}, points = {self._points}, MP={self._match_passed}'
+        return f'{self.id_player}|{self.last_name} {self.first_name}:' \
+               f' elo={self.elo}, points = {self._points}, MP={self._match_passed}'
 
     @property
     def player_attributes(self):

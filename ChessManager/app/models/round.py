@@ -21,3 +21,11 @@ class Round:
         self.begin_time = begin_time
         self.end_time = end_time
         pass
+
+    def __repr__(self):
+        newline = "\n\t"
+        return f"Round {self.id_round}\n" \
+               f"\tStart at : {self.begin_time}\n" \
+               f"\t  End at : {self.end_time}\n\n" \
+               f"Matches :\n\t" \
+               f"{newline.join(map(str, self.matches))}"
