@@ -4,11 +4,11 @@ from app.models.match import Match
 
 class MatchManager:
     """
-    DESCRIPTION
+    Match manager
     """
     def __init__(self):
         """
-        DESCRIPTION
+        Construct the match manager
         """
         self.matches = []
         self.players_playing = []
@@ -16,11 +16,15 @@ class MatchManager:
 
     def set_matches(self, id_match, player_a, player_b):
         """
-        DESCRIPTION
+        Create a match for player_a and player_b
 
-        :param id_match:
-        :param player_a:
-        :param player_b:
+        :param id_match: ID of the match created
+        :param player_a: first player
+        :param player_b: second player
+
+        :rtype id_match: str
+        :rtype player_a: obj
+        :rtype player_b: obj
         """
 
         self.matches.append(Match(id_match, player_a, player_b))
@@ -30,10 +34,13 @@ class MatchManager:
 
     def match_winner(self, id_match, control):
         """
+        Define the winner of a match
 
-        :param id_match:
-        :param control:
-        :return:
+        :param id_match: ID of the match
+        :param control: "0": player_a win or "1": player_b win
+
+        :rtype id_match: str
+        :rtype control: str
         """
         for match in self.matches:
             if id_match == match.id_match:
@@ -42,14 +49,16 @@ class MatchManager:
                 if control == "1":
                     match.player_b.points = 1
                 match.set_winner(control)
-        pass
 
     def match_equality(self, id_match, control):
         """
+        Set an equality for a match
 
-        :param id_match:
-        :param control:
-        :return:
+        :param id_match: ID of the equality match
+        :param control: "2" for equality
+
+        :rtype id_match: str
+        :rtype control: str
         """
         for match in self.matches:
             if id_match == match.id_match:
@@ -60,10 +69,13 @@ class MatchManager:
 
     def match_done(self, player_a, player_b):
         """
+        Declare the match finished between player_a and player_b
 
-        :param player_a:
-        :param player_b:
-        :return:
+        :param player_a: first player
+        :param player_b: second player
+
+        :rtype player_b: obj
+        :rtype player_b: obj
         """
         player_a.match_passed = player_b.id_player
         player_b.match_passed = player_a.id_player
@@ -71,8 +83,7 @@ class MatchManager:
 
     def round_done(self):
         """
-
-        :return:
+        Empty the matches
         """
         self.matches = []
         pass
@@ -80,24 +91,24 @@ class MatchManager:
     @property
     def playing(self):
         """
-
-        :return:
+        Get the players playing the round
+        :return: return the list of players playing during this round.
         """
         return self.players_playing
 
     @playing.getter
     def playing(self):
         """
-
-        :return:
+        Get the players playing the round
+        :return: return the list of players playing during this round.
         """
         return self.players_playing
 
     @playing.setter
     def playing(self, var):
         """
-
-        :param var:
-        :return:
+        Add <var> players to the list players_playing
+        :param var: players playing
+        :rtype var: obj
         """
         self.players_playing = var

@@ -45,4 +45,8 @@ class Match:
 
     @property
     def match(self):
+        """
+        Return informations of the 2 players of the match
+        :return: tuple of 2 lists which has player and his points.
+        """
         return tuple([self.player_a, self.player_a.points], [self.player_b, self.player_b.points])

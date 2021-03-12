@@ -18,6 +18,7 @@ class PlayerManager:
     def create_player(self, auto=False):
         """
         Create players procedurally or manually, depending on <auto>.
+
         :param auto: True: Procedurally, False: Manually
         :rtype auto: boolean
         """

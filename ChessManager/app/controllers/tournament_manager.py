@@ -63,8 +63,8 @@ class TournamentManager:
     def add_rounds(self, list_matches):
         """
         Add a list of matches instances to the tournament.rounds attribute associate
-        :param list_matches:
-        :rtype:
+        :param list_matches: list of matches
+        :rtype: list
         """
         self.event.rounds.append(list_matches)
 

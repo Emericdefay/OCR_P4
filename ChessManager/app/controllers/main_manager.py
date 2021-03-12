@@ -16,6 +16,11 @@ class MainManager:
     def __init__(self, number_players, id_tournament):
         """
 
+        :param number_players: Number of players playing the tournament
+        :param id_tournament: ID of the tournament create
+
+        :rtype number_players: int
+        :rtype id_tournament: str
         """
         # Composition
         self.players_management = PlayerManager()
@@ -50,6 +55,7 @@ class MainManager:
     def generate_players(self):
         """
         2. Add players
+            Add players to the tournament.
         """
 
         for i in range(self.number_players):
@@ -63,6 +69,8 @@ class MainManager:
     def generate_pairs(self):
         """
         3. Create matches
+            With players, generate pairs of players to create matches for a round.
+        :return: recursive function if the matches aren't compatibles.
         """
         self.players_management.sort_players()
 
@@ -126,6 +134,18 @@ class MainManager:
         self.show_round(self.number_rounds)
 
     def match_result(self, id_match, test=None, auto=False):
+        """
+        Give result for the <id_match> match, test is for testing functions, auto is to
+        not show every results in test mode.
+
+        :param id_match: Id of the match witch waiting results.
+        :param test: "0", "1" or "2", for player1/player2 win or equality
+        :param auto: verbose condition
+
+        :rtype id_match: str
+        :rtype test: str
+        :rtype auto: boolean
+        """
         for index, match in enumerate(self.matches_management.matches):
             if id_match == match.id_match:
                 player_a = match.player_a
@@ -162,12 +182,18 @@ class MainManager:
             self.number_matches = 0
 
     def check_first_round(self):
+        """
+        :return: return if the first round of the tournament already happened
+        """
         for player in self.players_management.players:
             if player.points > 0:
                 return False
         return True
 
     def get_times(self):
+        """
+        :return: return list of two elements : time_round_begin, time_round_end
+        """
         time_a = datetime.datetime.now()
         time_a_strf = time_a.strftime("%H:%M:%S - %d/%b/%Y")
 
@@ -179,32 +205,71 @@ class MainManager:
         return time_a_strf, time_b_strf
 
     def report_create_tournament(self):
+        """
+        Report the tournament's characteristics
+        """
         Report(self.tournament.event).tournament_created()
 
     def report_create_players(self):
+        """
+        Report the list of players playing the tournament
+        """
         Report(self.players_management.players).players_created()
 
     def report_players(self):
+        """
+        Report the player's list of the tournament by score
+        """
         Report(self.players_management.players).show_players_by_score()
 
     def report_round_number(self):
+        """
+        Report the round's number.
+        """
         Report(self.number_rounds).show_number_round()
 
     def show_round(self, id_round):
+        """
+        Report the current round status of the tournament
+
+        :param id_round: ID of the match
+        :rtype id_round: str
+        """
         Report(self.round_management.list_rounds).show_round(id_round)
 
     def show_matches(self, id_match):
+        """
+        Report the current matches status of the round
+
+        :param id_match: ID of the match
+        :rtype id_match: str
+        """
         # REDEFINE
         Report(self.tournament.event.rounds).show_matches(id_match[:3])
 
     def show_match_played(self, id_match):
+        """
+        Report the matches already played during the round
+
+        :param id_match: ID of the match
+        :rtype id_match: str
+        """
         Report(self.tournament.event.rounds).show_matches(id_match)
 
     def show_match_left(self):
+        """
+        Report the matches still in progress
+        """
         Report(self.matches_management.matches).show_matches_left()
 
     def show_players_by_score(self):
+        """
+        Report the players by score
+        """
         Report(self.players_management.players).show_players_by_score()
 
     def show_players_by_alpha(self):
+        """
+        Report the players by alphabetic order
+        """
         Report(self.players_management.players).show_player_by_alpha()
